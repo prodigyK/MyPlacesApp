@@ -18,6 +18,10 @@ class PlacesTableViewController: UITableViewController {
         
         places = Place.generatePlaces()
     }
+    
+    @IBAction func cancelController(_ segue: UIStoryboardSegue) {
+        
+    }
 
     // MARK: - Table view data source
 

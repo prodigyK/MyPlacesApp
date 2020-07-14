@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		849E5BC024BDA4D1000833FF /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E5BBF24BDA4D1000833FF /* DetailTableViewController.swift */; };
 		84D2DAED24BD00B9007B2B99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2DAEC24BD00B9007B2B99 /* AppDelegate.swift */; };
 		84D2DAEF24BD00B9007B2B99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2DAEE24BD00B9007B2B99 /* SceneDelegate.swift */; };
 		84D2DAF424BD00B9007B2B99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D2DAF224BD00B9007B2B99 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		849E5BBF24BDA4D1000833FF /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		84D2DAE924BD00B9007B2B99 /* MyPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D2DAEC24BD00B9007B2B99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84D2DAEE24BD00B9007B2B99 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				84D2DB0024BD013D007B2B99 /* PlacesTableViewController.swift */,
 				84D2DB0224BD017F007B2B99 /* PlaceTableViewCell.swift */,
 				84D2DB0424BD0409007B2B99 /* Place.swift */,
+				849E5BBF24BDA4D1000833FF /* DetailTableViewController.swift */,
 				84D2DAF224BD00B9007B2B99 /* Main.storyboard */,
 				84D2DAF524BD00BA007B2B99 /* Assets.xcassets */,
 				84D2DAF724BD00BA007B2B99 /* LaunchScreen.storyboard */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849E5BC024BDA4D1000833FF /* DetailTableViewController.swift in Sources */,
 				84D2DAED24BD00B9007B2B99 /* AppDelegate.swift in Sources */,
 				84D2DAEF24BD00B9007B2B99 /* SceneDelegate.swift in Sources */,
 				84D2DB0124BD013D007B2B99 /* PlacesTableViewController.swift in Sources */,
@@ -293,6 +297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3WRFMAJ9PY;
 				INFOPLIST_FILE = MyPlaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,6 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3WRFMAJ9PY;
 				INFOPLIST_FILE = MyPlaces/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
