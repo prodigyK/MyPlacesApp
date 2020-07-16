@@ -6,14 +6,15 @@
 //  Copyright © 2020 TheProdigy. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 struct Place {
     var name: String
-    var location: String
-    var type: String
-    var image: String
+    var location: String?
+    var type: String?
+    var image: UIImage?
+    var restaurantImage: String?
     
     static let restaurantNames = [
         "Bonsai",
@@ -37,7 +38,7 @@ struct Place {
         
         var places: [Place] = []
         for name in restaurantNames {
-            let place = Place(name: name, location: "Odessa", type: "Bar", image: name)
+            let place = Place(name: name, location: "Odessa", type: "Bar", image: nil, restaurantImage: name)
             places.append(place)
         }
         

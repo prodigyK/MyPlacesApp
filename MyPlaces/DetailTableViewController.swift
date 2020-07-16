@@ -10,12 +10,40 @@ import UIKit
 
 class DetailTableViewController: UITableViewController {
 
-    @IBOutlet weak var imageOfPlace: UIImageView!
+    @IBOutlet weak var placeImage: UIImageView!
+    @IBOutlet weak var placeName: UITextField!
+    @IBOutlet weak var placeLocation: UITextField!
+    @IBOutlet weak var placeType: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    var place: Place?
+    var isImageChanged: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
+        
+        saveButton.isEnabled = false
+        
+        placeName.addTarget(self, action: #selector(textFieldNameChanged), for: .editingChanged)
+    }
+    
+    @objc func textFieldNameChanged() {
+        
+        saveButton.isEnabled = !placeName.text!.isEmpty
+    }
+    
+    @IBAction func cancelPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
+    func saveNewPlace() -> Place {
+        
+        let image = isImageChanged ? placeImage.image! : #imageLiteral(resourceName: "imagePlaceholder")
+        
+        return Place(name: placeName.text!, location: placeLocation.text, type: placeType.text, image: image)
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -27,8 +55,7 @@ class DetailTableViewController: UITableViewController {
             let actionSheet = UIAlertController(title: "Add Photo",
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
-//            actionSheet.mess
-            
+
             let camera = UIAlertAction(title: "Camera", style: .default) { _ in
                 self.chooseImagePicker(source: .camera)
             }
@@ -82,9 +109,13 @@ extension DetailTableViewController: UIImagePickerControllerDelegate, UINavigati
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        imageOfPlace.image = info[.editedImage] as? UIImage
-        imageOfPlace.contentMode = .scaleAspectFill
-        imageOfPlace.clipsToBounds = true
+        
+        placeImage.image = info[.editedImage] as? UIImage
+        placeImage.contentMode = .scaleAspectFill
+        placeImage.clipsToBounds = true
+        
+        isImageChanged = true
+        
         dismiss(animated: true, completion: nil)
     }
 }
