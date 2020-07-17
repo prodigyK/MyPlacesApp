@@ -21,6 +21,8 @@ class DetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Place.savePlaces()
 
         tableView.tableFooterView = UIView()
         
@@ -37,7 +39,7 @@ class DetailTableViewController: UITableViewController {
     @IBAction func cancelPressed(_ sender: Any) {
         dismiss(animated: true)
     }
-    
+    /*
     func saveNewPlace() -> Place {
         
         let image = isImageChanged ? placeImage.image! : #imageLiteral(resourceName: "imagePlaceholder")
@@ -45,7 +47,7 @@ class DetailTableViewController: UITableViewController {
         return Place(name: placeName.text!, location: placeLocation.text, type: placeType.text, image: image)
         
     }
-    
+    */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             

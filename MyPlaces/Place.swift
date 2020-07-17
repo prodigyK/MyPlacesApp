@@ -6,15 +6,22 @@
 //  Copyright © 2020 TheProdigy. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
 
-struct Place {
-    var name: String
-    var location: String?
-    var type: String?
-    var image: UIImage?
-    var restaurantImage: String?
+class Place: Object {
+    @objc dynamic var name: String = ""
+    @objc dynamic var location: String?
+    @objc dynamic var type: String?
+    @objc dynamic var image: Data?
+    
+    convenience init(name: String, location: String?, type: String?, image: Data?) {
+        self.init()
+        self.name = name
+        self.location = location
+        self.type = type
+        self.image = image
+    }
     
     static let restaurantNames = [
         "Bonsai",
@@ -33,16 +40,35 @@ struct Place {
         "Классик",
         "Шок"
     ]
-    
-    static func generatePlaces() -> [Place] {
+
+    static func savePlaces() {
         
-        var places: [Place] = []
-        for name in restaurantNames {
-            let place = Place(name: name, location: "Odessa", type: "Bar", image: nil, restaurantImage: name)
-            places.append(place)
+         
+        for place in restaurantNames {
+            
+            let newPlace = Place()
+            
+            let image = UIImage(named: place)
+            guard let imageData = image?.pngData() else { return }
+            
+            newPlace.name = place
+            newPlace.location = "Odessa"
+            newPlace.type = "Bar"
+            newPlace.image = imageData
+            
+            RealmManager.save(newPlace)
         }
-        
-        return places
     }
+    
+//    static func generatePlaces() -> [Place] {
+//
+//        var places: [Place] = []
+//        for name in restaurantNames {
+//            let place = Place(name: name, location: "Odessa", type: "Bar", image: nil, restaurantImage: name)
+//            places.append(place)
+//        }
+//
+//        return places
+//    }
     
 }

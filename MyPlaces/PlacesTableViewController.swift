@@ -16,15 +16,15 @@ class PlacesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        places = Place.generatePlaces()
+//        places = Place.generatePlaces()
     }
     
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
         guard let sourceVC = segue.source as? DetailTableViewController else { return }
         
-        let place = sourceVC.saveNewPlace()
+//        let place = sourceVC.saveNewPlace()
         
-        places.append(place)
+//        places.append(place)
         
         tableView.reloadData()
     }
@@ -49,7 +49,7 @@ class PlacesTableViewController: UITableViewController {
         cell.nameLabel.text = place.name
         cell.locationLabel.text = place.location
         cell.typeLabel.text = place.type
-        cell.placeImage.image = place.image != nil ? place.image : UIImage(named: places[indexPath.row].restaurantImage!)
+//        cell.placeImage.image = place.image != nil ? place.image : UIImage(named: places[indexPath.row].restaurantImage!)
         cell.placeImage.layer.cornerRadius = cell.placeImage.bounds.width / 2
         
         return cell
