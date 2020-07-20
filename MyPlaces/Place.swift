@@ -14,6 +14,7 @@ class Place: Object {
     @objc dynamic var location: String?
     @objc dynamic var type: String?
     @objc dynamic var image: Data?
+    @objc dynamic var date = Date()
     
     convenience init(name: String, location: String?, type: String?, image: Data?) {
         self.init()
@@ -40,7 +41,7 @@ class Place: Object {
         "Классик",
         "Шок"
     ]
-
+    
     static func savePlaces() {
         
          

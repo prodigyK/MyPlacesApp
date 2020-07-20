@@ -16,19 +16,19 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var placeType: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    var place: Place?
+    var currentPlace: Place?
     var isImageChanged: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Place.savePlaces()
 
         tableView.tableFooterView = UIView()
         
         saveButton.isEnabled = false
         
         placeName.addTarget(self, action: #selector(textFieldNameChanged), for: .editingChanged)
+        
+        updateFields()
     }
     
     @objc func textFieldNameChanged() {
@@ -39,15 +39,45 @@ class DetailTableViewController: UITableViewController {
     @IBAction func cancelPressed(_ sender: Any) {
         dismiss(animated: true)
     }
-    /*
-    func saveNewPlace() -> Place {
+    
+    func savePlace() {
         
         let image = isImageChanged ? placeImage.image! : #imageLiteral(resourceName: "imagePlaceholder")
         
-        return Place(name: placeName.text!, location: placeLocation.text, type: placeType.text, image: image)
+        if currentPlace != nil {
+            
+            try! realm.write { 
+                currentPlace?.name =        placeName.text!
+                currentPlace?.location =    placeLocation.text
+                currentPlace?.type =        placeType.text
+                currentPlace?.image =       placeImage.image?.pngData()
+            }
+        } else {
+            
+            let place = Place(name: placeName.text!, location: placeLocation.text, type: placeType.text, image: image.pngData())
+             RealmManager.save(place)
+        }
         
     }
-    */
+    
+    func updateFields() {
+        
+        if currentPlace != nil {
+            
+            navigationItem.leftBarButtonItem = nil
+            
+            isImageChanged = true
+            title = currentPlace?.name
+            saveButton.isEnabled = true
+            
+            placeName.text =        currentPlace?.name
+            placeLocation.text =    currentPlace?.location
+            placeType.text =        currentPlace?.type
+            placeImage.image =      UIImage(data: (currentPlace?.image)!)
+            placeImage.contentMode = .scaleAspectFill
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             

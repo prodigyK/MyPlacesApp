@@ -13,9 +13,14 @@ let realm = try! Realm()
 class RealmManager {
     
     static func save(_ place: Place) {
-        
         try! realm.write {
             realm.add(place)
+        }
+    }
+    
+    static func delete(_ place: Place) {
+        try! realm.write {
+            realm.delete(place)
         }
     }
     
