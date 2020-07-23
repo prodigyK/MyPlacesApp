@@ -10,8 +10,14 @@ import RealmSwift
 
 class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let searchController = UISearchController(searchResultsController: nil)
     var places: Results<Place>!
+    var filteredPlaces: Results<Place>!
     var ascendingSorting = true
+    var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -21,6 +27,13 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         places = realm.objects(Place.self)
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search..."
+        searchController.isActive = false
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     @IBAction func reversedPressed(_ sender: UIBarButtonItem) {
@@ -97,6 +110,16 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         return UISwipeActionsConfiguration(actions: [actionDelete])
     }
-    
+}
 
+extension PlacesTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
+        
+        tableView.reloadData()
+    }
 }
