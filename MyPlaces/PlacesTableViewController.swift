@@ -31,9 +31,11 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search..."
-        searchController.isActive = false
+        searchController.hidesNavigationBarDuringPresentation = true
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
+        extendedLayoutIncludesOpaqueBars = true
     }
     
     @IBAction func reversedPressed(_ sender: UIBarButtonItem) {
@@ -70,7 +72,12 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
         if segue.identifier == "detailCell" {
             guard let destVC = segue.destination as? DetailTableViewController else { return }
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let place = places[indexPath.row]
+            var place = Place()
+            if searchBarIsEmpty {
+                place = places[indexPath.row]
+            } else {
+                place = filteredPlaces[indexPath.row]
+            }
             destVC.currentPlace = place
         }
         
@@ -80,13 +87,19 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return places.isEmpty ? 0 : places.count
+        return searchBarIsEmpty ? places.count : filteredPlaces.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PlaceTableViewCell
 
-        let place = places[indexPath.row]
+        var place = Place()
+        if searchBarIsEmpty {
+            place = places[indexPath.row]
+        } else {
+            place = filteredPlaces[indexPath.row]
+        }
+        
         
         cell.nameLabel.text = place.name
         cell.locationLabel.text = place.location

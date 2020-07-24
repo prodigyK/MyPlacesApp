@@ -88,8 +88,8 @@
 				849E5BBF24BDA4D1000833FF /* DetailTableViewController.swift */,
 				8465ED6324C1FA2E0013033B /* RealmManager.swift */,
 				84D2DAF224BD00B9007B2B99 /* Main.storyboard */,
-				84D2DAF524BD00BA007B2B99 /* Assets.xcassets */,
 				84D2DAF724BD00BA007B2B99 /* LaunchScreen.storyboard */,
+				84D2DAF524BD00BA007B2B99 /* Assets.xcassets */,
 				84D2DAFA24BD00BA007B2B99 /* Info.plist */,
 			);
 			path = MyPlaces;
@@ -379,7 +379,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Big-Company.MyPlaces";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -398,7 +398,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Big-Company.MyPlaces";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

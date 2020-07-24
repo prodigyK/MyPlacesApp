@@ -67,7 +67,7 @@ class DetailTableViewController: UITableViewController {
         if currentPlace != nil {
             
             if  let topItem = navigationController?.navigationBar.topItem {
-                topItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+                topItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             }
             navigationItem.leftBarButtonItem = nil
             
