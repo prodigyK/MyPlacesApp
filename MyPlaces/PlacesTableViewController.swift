@@ -18,6 +18,7 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
     }
+    var searchBarIsVisible: Bool = false
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -32,11 +33,14 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search..."
         searchController.hidesNavigationBarDuringPresentation = true
+//        searchController.isActive = searchBarIsVisible
         navigationItem.searchController = searchController
+//        searchController.hidesNavigationBarDuringPresentation = true
         navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
-        extendedLayoutIncludesOpaqueBars = true
+//        extendedLayoutIncludesOpaqueBars = true
     }
+    
     
     @IBAction func reversedPressed(_ sender: UIBarButtonItem) {
 
@@ -69,6 +73,7 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "detailCell" {
             guard let destVC = segue.destination as? DetailTableViewController else { return }
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
@@ -81,6 +86,10 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
             destVC.currentPlace = place
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Table view data source
@@ -99,13 +108,15 @@ class PlacesTableViewController: UIViewController, UITableViewDelegate, UITableV
         } else {
             place = filteredPlaces[indexPath.row]
         }
-        
-        
+                
         cell.nameLabel.text = place.name
         cell.locationLabel.text = place.location
         cell.typeLabel.text = place.type
         cell.placeImage.image = UIImage(data: place.image!)
         cell.placeImage.layer.cornerRadius = cell.placeImage.bounds.width / 2
+        
+//        cell.setupRatingStars(Int(place.rating))
+        cell.cosmoView.rating = place.rating
         
         return cell
     }

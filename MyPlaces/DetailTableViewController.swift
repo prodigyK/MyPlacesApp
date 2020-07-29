@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class DetailTableViewController: UITableViewController {
 
     @IBOutlet weak var placeImage: UIImageView!
@@ -15,6 +16,7 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var placeLocation: UITextField!
     @IBOutlet weak var placeType: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     var currentPlace: Place?
     var isImageChanged: Bool = false
@@ -22,7 +24,7 @@ class DetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
         
         saveButton.isEnabled = false
         
@@ -31,6 +33,7 @@ class DetailTableViewController: UITableViewController {
 //        Place.savePlaces()
         
         updateFields()
+        
     }
     
     @objc func textFieldNameChanged() {
@@ -53,11 +56,17 @@ class DetailTableViewController: UITableViewController {
                 currentPlace?.location =    placeLocation.text
                 currentPlace?.type =        placeType.text
                 currentPlace?.image =       placeImage.image?.pngData()
+                currentPlace?.rating =      Double(ratingControl.rating)
             }
         } else {
             
-            let place = Place(name: placeName.text!, location: placeLocation.text, type: placeType.text, image: image.pngData())
-             RealmManager.save(place)
+            let place = Place(name: placeName.text!,
+                              location: placeLocation.text,
+                              type: placeType.text,
+                              image: image.pngData(),
+                              rating: Double(ratingControl.rating))
+            
+            RealmManager.save(place)
         }
         
     }
@@ -78,8 +87,10 @@ class DetailTableViewController: UITableViewController {
             placeName.text =        currentPlace?.name
             placeLocation.text =    currentPlace?.location
             placeType.text =        currentPlace?.type
+            ratingControl.rating =  Int(currentPlace!.rating)
             placeImage.image =      UIImage(data: (currentPlace?.image)!)
             placeImage.contentMode = .scaleAspectFill
+            
         }
     }
     
@@ -118,6 +129,12 @@ class DetailTableViewController: UITableViewController {
         } else {
             tableView.endEditing(true)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "showMap" else { return }
+        guard let mapVC = segue.destination as? MapViewController else { return }
+        mapVC.place = currentPlace
     }
     
 
